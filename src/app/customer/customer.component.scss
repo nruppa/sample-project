@@ -1,0 +1,122 @@
+.container {
+    padding: 20px;
+  }
+  .search-fields {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.search-fields legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
+  .user-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .user-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .user-info {
+    margin-bottom: 15px;
+  }
+  
+  .user-actions button {
+    margin-right: 10px;
+  }
+  .flex-container {
+    display: flex;
+  }
+  
+  .flex-item {
+    flex: 1;
+    margin-right: 10px;
+  }
+  .add-user-form-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-user-form-popup.visible {
+    display: flex;
+}
+
+.add-user-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.add-user-form h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.add-user-form .form-group {
+    margin-bottom: 15px;
+}
+
+.add-user-form label {
+    display: block;
+    font-weight: bold;
+}
+
+.add-user-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.add-user-form button {
+    margin-right: 10px;
+}
+
+.custom-table td {
+    padding: 0.5rem; /* Adjust the padding as needed */
+    font-size: 0.9rem; /* Adjust the font size as needed */
+    height: 10px; /* Adjust the height as needed */
+    // line-height: 7px; /* Adjust the line-height as needed */
+}
+/* Custom CSS to decrease the height of table rows */
+.custom-table tr {
+    height: 2rem; /* Adjust the height as needed */
+}
+
+.head{
+  font-weight: bold;
+   font-size:190%;
+   margin-top: -2%;
+}
+.add{
+
+  margin-left: 85%;
+  margin-bottom: 1%;
+  margin-top: -2%;
+
+}
+.btn{
+  margin-left: 74%;
+}
+.py-3 {
+  padding-top: 0rem !important;
+  padding-bottom: 1rem !important;
+}

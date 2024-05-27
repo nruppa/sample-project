@@ -1,0 +1,132 @@
+<h5>Tracking Details</h5>
+<p-card>
+    <div>
+        <button pButton type="button" label="Back" (click)="backNavigation()" class="back"></button>
+    </div>
+    <form [formGroup]="trackingDetails">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="name">Unit</label>
+                <input id="name" type="text" formControlName="unit" pInputText readonly="true" />
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Event Type</label>
+                <input type="text" formControlName="eventType" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Event Time</label>
+                <input type="text" formControlName="eventTime" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>BOL Number</label>
+                <input type="text" formControlName="bolNumber" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Tracking Number</label>
+                <input type="text" formControlName="trackingNumber" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Reference Number</label>
+                <input type="text" formControlName="referenceNumber" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>SCAS Code</label>
+                <input type="text" formControlName="scacCode" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>MC</label>
+                <input type="text" formControlName="mc" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Latitude</label>
+                <input type="text" formControlName="latitude" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Latitude</label>
+                <input type="text" formControlName="latitude" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Longitude</label>
+                <input type="text" formControlName="longitude" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>City</label>
+                <input type="text" formControlName="cityName" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>State</label>
+                <input type="text" formControlName="stateCode" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Pickup Date</label>
+                <input type="text" formControlName="pickupDate" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Order</label>
+                <input type="text" formControlName="order" pInputText readonly="true" />
+            </div>
+      
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Driver Name</label>
+            <input type="text" formControlName="driverName" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Driver Contact Number</label>
+            <input type="text" formControlName="driverCellPhone" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Controlling Customer</label>
+            <input type="text" formControlName="controllingCustomer" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Shipping Customer</label>
+            <input type="text" formControlName="shippingCustomer" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Bill To Customer</label>
+            <input type="text" formControlName="billToCustomer" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Trailer1 Number</label>
+            <input type="text" formControlName="trailer1Number" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Trailer1 Pct</label>
+            <input type="text" formControlName="trailer1Pct" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Trailer2 Number</label>
+            <input type="text" formControlName="trailer2Number" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Trailer2 Pct</label>
+            <input type="text" formControlName="trailer2Pct" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Stop Name</label>
+            <input type="text" formControlName="stopName" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Address1</label>
+            <input type="text" formControlName="address1" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Address2</label>
+            <input type="text" formControlName="address2" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Postal Code</label>
+            <input type="text" formControlName="postalCode" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Country</label>
+            <input type="text" formControlName="country" pInputText readonly="true" />
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+            <label>Stop Type</label>
+            <input type="text" formControlName="stopType" pInputText readonly="true" />
+        </div>
+        </div>
+    </form>
+</p-card>

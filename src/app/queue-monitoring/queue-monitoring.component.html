@@ -1,0 +1,123 @@
+<h5>Queue Monitoring</h5>
+<p-toast></p-toast>
+<p-card>
+    <p-confirmDialog [style]="{width: '30vw'}" key="positionDialog" [baseZIndex]="10000"></p-confirmDialog>
+    <div class=" flex justify-content-end ">
+        <p-button class="primarybtn" label="Add Queue" (click)="addQueue()"></p-button>
+    </div>
+    <div class="grid">
+        <div class="col-12 md:col-6 lg:col-4 p-fluid">
+            <label class="textfont" for="queueName">Queue Name</label><br>
+            <input type="text" placeholder="Queue Name" pInputText id="queueName" [(ngModel)]="queueName" />
+        </div>
+        <div class="col">
+            <br>
+            <button pButton type="button" label="Search" (click)="searchQueData()"></button>
+        </div>
+    </div>
+    <br>
+    <ng-container *ngIf="didSearch">
+        <div *ngIf="queueData.length!=0">
+            <p-table #dt [columns]="tableHeaders" [value]="queueData" selectionMode="single" dataKey="edit"
+                responsiveLayout="scroll" styleClass="p-datatable-gridlines" [rows]="10"
+                [rowsPerPageOptions]="[5, 10, 20]" [resizableColumns]="true" [showCurrentPageReport]="true"
+                currentPageReportTemplate="Showing {first} to {last} of {queueData.length} records">
+                <ng-template pTemplate="header" let-columns>
+                    <tr>
+                        <th *ngFor="let col of columns"  class="textfont" [pSortableColumn]="col.field">
+                            {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-data let-i="rowIndex">
+                    <tr>
+                        <td>{{data.activeMqueue.queueName}}</td>
+                        <td>{{data.activeMqueue.pendingMessages}}</td>
+                        <td>{{data.activeMqueue.messageLimit}}</td>
+                        <td>{{data.activeMqueue.brokerUrl}}</td>
+                        <td>
+                            <div class="flex justify-content-center">
+                                <i class="pi pi-pencil actionIcons" (click)="updateQueue(data)"></i>
+                                <i class="pi pi-trash actionIcons pl-3" (click)="deleteQueue(data)"></i>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </div>
+        <app-no-records [display]="queueData.length==0"></app-no-records>
+    </ng-container>
+</p-card>
+<p-dialog [header]="action+ ' Queue'" [(visible)]="showAddUpdateDialog" [modal]="true" [style]="{ 'width': '500px' }"
+    (onHide)="showAddUpdateDialog=false" [draggable]="false" [resizable]="false">
+    <form [formGroup]="queueDataForm">
+        <div class="grid p-fluid ">
+            <div class="col-12 md:col-8 lg:col-8">
+                <label class="textfont" for="queueName">Queue Name<span class="mandatoryColor">*</span></label>
+                <input type="text" placeholder="Queue Name" pInputText id="queueName" formControlName="queueName" />
+                <div class="mandatoryColor">
+                    <span
+                        *ngIf="(qData?.queueName?.touched || qData?.queueName?.dirty) && qData.queueName?.errors?.required">
+                        Please enter queue name</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-4 lg:col-4">
+                <label class="textfont" for="limit">Limit<span class="mandatoryColor">*</span></label>
+                <input type="number" placeholder="Limit" pInputText id="messageLimit" formControlName="messageLimit" />
+                <div class="mandatoryColor">
+                    <span
+                        *ngIf="(qData?.messageLimit?.touched || qData?.messageLimit?.dirty) && qData.messageLimit?.errors?.required">
+                        Please enter limit</span>
+                    <span
+                        *ngIf="(qData?.messageLimit?.touched || qData?.messageLimit?.dirty) && qData.messageLimit?.errors?.min">
+                        Please enter valid limit</span>
+                </div>
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-6">
+                <label class="textfont" for="userName">User Name<span class="mandatoryColor">*</span></label>
+                <input type="text" placeholder="User Name" pInputText id="userId" formControlName="userId" />
+                <div class="mandatoryColor">
+                    <span *ngIf="(qData?.userId?.touched || qData?.userId?.dirty) && qData.userId?.errors?.required">
+                        Please enter user name</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-6 lg:col-6">
+                <label class="textfont" for="password">Password<span class="mandatoryColor">*</span></label>
+                <input pInputText placeholder="Password" id="password" formControlName="password" />
+                <div class="mandatoryColor">
+                    <span
+                        *ngIf="(qData?.password?.touched || qData?.password?.dirty) && qData.password?.errors?.required">
+                        Please enter password</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 lg:col-12">
+                <label class="textfont" for="brokerUrl">Broker URL<span class="mandatoryColor">*</span></label>
+                <textarea pInputTextarea aria-label="Broker URL" [autoResize]="true" rows="1" id="brokerUrl"
+                    placeholder="Broker URL" formControlName="brokerUrl"></textarea>
+                <div class="mandatoryColor">
+                    <span
+                        *ngIf="(qData?.brokerUrl?.touched || qData?.brokerUrl?.dirty) && qData.brokerUrl?.errors?.required">
+                        Please enter broker URL</span>
+                </div>
+            </div>
+            <div class="col-12 md:col-12 lg:col-12">
+                <label class="textfont" for="mails">Mail to <span class="infoMessage">(Press Enter(↵) after each
+                        entry)</span></label>
+                <p-chips placeholder="Mails" (onAdd)="validateEmail($event)" id="mails"
+                    formControlName="mails"></p-chips>
+                <div class="mandatoryColor">
+                    <span *ngIf="(qData?.mails?.touched || qData?.mails?.dirty) && qData.mails?.errors?.required">
+                        Please enter atleat one mail</span>
+                </div>
+            </div>
+        </div>
+    </form>
+    <div class="grid flex flex-wrap justify-content-end mt-4 ">
+        <p-button class="primarybtn" label="Close" (click)="showAddUpdateDialog=false"></p-button>&nbsp;&nbsp;
+        <p-button class="primarybtn" (click)="testConnection()" *ngIf="!isConnected||connChanged">Test
+            Connection</p-button>
+        <p-button class="primarybtn" (click)="saveQueue()" *ngIf="isConnected&&!connChanged">{{action}}</p-button>
+    </div>
+</p-dialog>

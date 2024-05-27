@@ -1,0 +1,80 @@
+::ng-deep .p-dropdown {
+    width: 100% !important;
+  }
+  .input-group {
+    // display: flex;
+    // flex-direction: column;
+    margin-bottom: 10px; /* Adjust spacing between input groups */
+  }
+  
+  .input-group label {
+    margin-bottom: 5px; /* Adjust spacing between label and input field */
+  }
+  .container {
+    margin-top: 1px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn-primary {
+    margin-right: 10px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  .search-container {
+    margin-bottom: 1px;
+}
+
+.search-fields {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.search-fields legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
+
+.p-grid .p-col {
+    margin-bottom: 1px;
+}
+.custom-table td {
+    height: 10px; /* Adjust the height as needed */
+    line-height: 7px; /* Adjust the line-height as needed */
+}
+/* Custom CSS to decrease the height of table data fields */
+.custom-table td {
+    padding: 0.5rem; /* Adjust the padding as needed */
+    font-size: 0.9rem; /* Adjust the font size as needed */
+}
+/* Custom CSS to decrease the height of table rows */
+.custom-table tr {
+    height: 2rem; /* Adjust the height as needed */
+}
+.btn{
+  margin-left: 74%;
+}
+.py-3 {
+  padding-top: 0rem !important;
+  padding-bottom: 1rem !important;
+}
+.buttnStyle{
+  margin-top: 17px;
+}

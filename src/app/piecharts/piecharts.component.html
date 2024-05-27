@@ -1,0 +1,12 @@
+<div class="p-fluid grid marginBtm">
+  <div class="col-12 sm:col-12 md:col-12 lg:col-12">
+    <h4 class="charts">Transitations / Hour</h4>
+    <p-chart type="line" [data]="updatesPerHourData" [height]="250" [options]="options"></p-chart>
+  </div>
+  <div class="col-12 sm:col-12 md:col-12 lg:col-12">
+    <h4 class="charts">Vendor vs Tracking updates</h4>
+    <p-chart type="pie" [data]="vendorVsTrackingData" [height]="250" [options]="optionsLabel"
+      *ngIf="vendorVsTrackingData?.labels?.length>0"></p-chart>
+    <app-no-records [display]="vendorVsTrackingData?.labels?.length==0"></app-no-records>
+  </div>
+</div>

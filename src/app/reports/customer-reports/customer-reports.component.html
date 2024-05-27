@@ -1,0 +1,85 @@
+<h5>Customer Reports</h5>
+<p-toast></p-toast>
+<p-card>
+    <form [formGroup]="customerReportForm">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-6 lg:col-3">
+                <span class="textfont">From and To Date</span>
+                <p-calendar formControlName="fromAndToDate" selectionMode="range" [readonlyInput]="true" inputId="range"
+                    [showTime]="true" placeholder="Select From and To Date"></p-calendar>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <span class="textfont">Vendor Name</span>
+                <p-multiSelect formControlName="vendorNames" [options]="vendorList" optionLabel="vendorName"
+                    optionValue="vendorId" (onChange)="onVendorChange($event.value)" placeholder="Select Vendor Name"
+                    display="chip"></p-multiSelect>
+            </div>
+            <div class="col-12 md:col-8 lg:col-3">
+                <span class="textfont">Customer Name</span>
+                <p-multiSelect [options]="customersList" optionValue="customerCode" formControlName="customerNames"
+                placeholder="Select Customer Name"  optionLabel="customerName" [virtualScroll]="true" [virtualScrollItemSize]="43"
+                    class="multiselect-custom-virtual-scroll" [showToggleAll]="false"
+                    [appendTo]="'body'" [style]="{ 'width': 'auto', 'min-width': '200px' }">
+                </p-multiSelect>
+            </div>
+        </div>
+        <br>
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-2 lg:col-2">
+                <button pButton type="button" label="Generate" (click)="generateReport()"></button>
+            </div>
+            <div class="col-12 md:col-2 lg:col-2">
+                <button pButton type="button" label="Reset" (click)="resetSearch()"></button>
+            </div>
+        </div>
+        
+    </form>
+</p-card>
+<br>
+<p-tabView *ngIf="customerReports.length&&didSearch">
+    <p-tabPanel header="Chart">
+        <div class="grid p-fluid flex justify-content-center">
+            <div class="col-12 md:col-8 lg:col-5 justify-content-center">
+                <p-chart type="pie" [data]="data" [options]="options"></p-chart>
+            </div>
+        </div>
+        <br>
+        <div class="grid justify-content-center text-center p-fluid">
+            <div class="col-12 md:col-4 lg:col-2">
+                <button pButton type="button" label="Generate Excel" (click)="generateExcelFile()"></button>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Table">
+        <p-table [columns]="cols" [value]="customerReports" selectionMode="single" dataKey="edit" [responsive]="true"
+            id="excel-table" sortMode="multiple">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th id="gridHeader" *ngFor="let col of columns let i=index" [pSortableColumn]="col.field">
+                        {{col.header}}
+                        <p-sortIcon [field]="col.field"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data let-i="rowIndex">
+                <tr>
+                    <td>{{ data.customers }}</td>
+                    <td> {{ data.sentCount }} </td>
+                    <td> {{ data.notSentCount }} </td>
+                    <td> {{ data.sentCount+data.notSentCount }} </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <br/>
+        <div class="grid justify-content-end text-center p-fluid">
+            <div class="col-12 md:col-4 lg:col-2">
+                <button pButton type="button" label="Generate Excel" (click)="generateExcelFile()"></button>
+            </div>
+        </div>
+    </p-tabPanel>
+    <br>
+    
+</p-tabView>
+<p-card *ngIf="didSearch">
+    <app-no-records [display]="customerReports.length==0"></app-no-records>
+</p-card>

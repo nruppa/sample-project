@@ -1,0 +1,151 @@
+<h5>Profile</h5>
+<p-toast></p-toast>
+<p-tabView (onChange)="handleChange($event)" [activeIndex]="activeTabIndex">
+    <p-tabPanel header="About Me">
+        <form [formGroup]="createForm">
+            <div class="p-fluid grid">
+                <div class="col-12 md:col-5 lg:col-2">
+                    <label for="firstName" class="textfont">First Name</label><span class="mandatoryColor">*</span>
+                </div>
+                <div class="col-12 md:col-7 lg:col-3">
+                    <input id="firstName" placeholder="Web Admin" class="w-full" pInputText type="text"
+                        formControlName="firstName" />
+                    <div
+                        *ngIf="createForm.get('firstName').invalid && (createForm.get('firstName').dirty || createForm.get('firstName').touched)">
+                        <span class="p-error " *ngIf="createForm.get('firstName').errors?.required">Please Enter
+                            the First Name.</span>
+                    </div>
+                </div>
+                <div class="col-12 md:col-5 lg:col-2 lg:ml-8">
+                    <label for="lastName" class="textfont">Last Name</label><span class="mandatoryColor">*</span>
+                </div>
+                <div class="col-12 md:col-7 lg:col-3">
+                    <input id="lastName" placeholder="Web Admin" class="w-full" pInputText type="text"
+                        formControlName="lastName" />
+                    <div
+                        *ngIf="createForm.get('lastName').invalid && (createForm.get('lastName').dirty || createForm.get('lastName').touched)">
+                        <span class="p-error " *ngIf="createForm.get('lastName').errors?.required">Please Enter
+                            the Last Name.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid p-fluid -mt-1">
+                <div class="col-12 md:col-5  lg:col-2">
+                    <label for="phoneNumber" class="textfont">Phone Number</label><span class="mandatoryColor">*</span>
+                </div>
+                <div class="col-12 md:col-7 lg:col-3">
+                    <p-inputNumber id="phoneNumber" formControlName="phoneNumber" mode="decimal" maxlength="10"
+                        inputId="withoutgrouping" [useGrouping]="false"
+                        placeholder="Enter Phone Number"></p-inputNumber>
+                    <div
+                        *ngIf="createForm.get('phoneNumber').invalid && (createForm.get('phoneNumber').dirty || createForm.get('phoneNumber').touched)">
+                        <span class="p-error " *ngIf="createForm.get('phoneNumber').errors?.required">Please
+                            Enter the Phone Number.</span>
+                    </div>
+                    <span class="p-error "
+                        *ngIf="createForm.controls.phoneNumber.errors?.minlength && createForm.controls.phoneNumber.errors?.maxlength || createForm.get('phoneNumber')?.hasError('pattern')">Please
+                        Enter valid phone number</span>
+                </div>
+                <div class="col-12 md:col-5 lg:col-2 lg:ml-8">
+                    <label for="emailId" class="textfont">Email</label><span class="mandatoryColor">*</span>
+                </div>
+                <div class="col-12 md:col-7 lg:col-3">
+                    <input id="emailId" class="w-full" placeholder="mscvp_alerts@miraclesoft.com" pInputText type="text"
+                        formControlName="emailId" />
+                    <div
+                        *ngIf="createForm.get('emailId').invalid && (createForm.get('emailId').dirty || createForm.get('emailId').touched)">
+                        <span class="p-error " *ngIf="createForm.get('emailId').errors?.required">Please Enter
+                            the Valid Email.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid p-fluid -mt-1">
+                <div class="col-12 md:col-5 lg:col-2">
+                    <label for="role" class="textfont">Role</label><span class="mandatoryColor">*</span>
+                </div>
+                <div class="col-12 md:col-7 lg:col-3">
+                    <p-dropdown formControlName="role" placeholder="Select Role" [options]="roles" optionLabel="label"
+                        optionValue="value" class="w-full"></p-dropdown>
+                    <div
+                        *ngIf="createForm.get('role').invalid && (createForm.get('role').dirty || createForm.get('role').touched)">
+                        <span class="p-error " *ngIf="createForm.get('role').errors?.required">Please
+                            Enter the Role.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid justify-content-start text-center p-fluid">
+                <div class="col-12 md:col-4 lg:col-2">
+                    <button pButton type="button" label="Update" (click)="updateUsers()"></button>
+                </div>
+            </div>
+        </form>
+    </p-tabPanel>
+    <p-tabPanel header="Change Password">
+        <form [formGroup]="changePasswordForm">
+            <div class="p-fluid grid fieldBotPad">
+                <div class="col-12 md:col-6 lg:col-2">
+                    <span class="textfont">Old Password <label class="mandatoryColor">*</label></span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <p-password [toggleMask]="true" [feedback]="false" placeholder="Old Password"
+                        formControlName="oldPassword"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right"></p-password>
+                    <div class="mandatoryColor">
+                        <span
+                            *ngIf="(formCP.oldPassword.dirty || formCP.oldPassword.touched) && formCP.oldPassword.errors?.required">Please
+                            enter old password</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-fluid grid fieldBotPad">
+                <div class="col-12 md:col-6 lg:col-2">
+                    <span class="textfont">New Password <label class="mandatoryColor">*</label></span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <p-password formControlName="newPassword" placeholder="New Password" [toggleMask]="true"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+                        <ng-template pTemplate="footer">
+                            <p-divider></p-divider>
+                            <p class="mt-2">Suggestions</p>
+                            <ul>
+                                <li>Must be at least eight characters!</li>
+                                <li>Must contain at least one upper case!</li>
+                                <li>Must contain at least one special character!</li>
+                            </ul>
+                        </ng-template>
+                    </p-password>
+                    <div class="mandatoryColor">
+                        <span
+                            *ngIf="(formCP.newPassword.dirty || formCP.newPassword.touched) && (formCP.newPassword.errors?.required)">Please
+                            enter new password</span>
+                        <span *ngIf="formCP.newPassword.errors?.pattern">Please enter a strong password</span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-fluid grid fieldBotPad">
+                <div class="col-12 md:col-6 lg:col-2">
+                    <span class="textfont">Confirm Password <label class="mandatoryColor">*</label></span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <p-password [toggleMask]="true" [feedback]="false" placeholder="Confirm Password"
+                        formControlName="confirmPassword"
+                        styleClass="p-password p-component p-inputwrapper p-input-icon-right">
+                    </p-password>
+                    <div class="mandatoryColor">
+                        <div
+                            *ngIf="(formCP.confirmPassword.dirty || formCP.confirmPassword.touched) && (formCP.confirmPassword.errors?.required)">
+                            Pleaseenter confirm password</div>
+                        <div *ngIf="(formCP.newPassword.value != formCP.confirmPassword.value)">Password and Confirm
+                            Password must be match</div>
+                    </div>
+                </div>
+            </div>
+            <div class="grid">
+                <div class="col">
+                    <button class="col-12 md:col-2 lg:col-2" pButton type="button" label="Update"
+                        (click)="updatePassword(changePasswordForm.value)"></button>
+                </div>
+            </div>
+        </form>
+    </p-tabPanel>
+</p-tabView>

@@ -1,0 +1,12 @@
+.p-inputtext,.time-zone-dropdown{
+    width: 80%;
+}
+@media screen and (max-width: 992px) {
+    .p-inputtext,.time-zone-dropdown {
+        width: 100%;
+    }
+}
+.mt {
+    margin-left: -136px;
+}
+

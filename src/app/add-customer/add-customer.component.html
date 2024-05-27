@@ -1,0 +1,250 @@
+<p-toast></p-toast>
+<div>
+    <p-panel header="Customer Details" [toggleable]="true" [collapsed]="showSubscriptionDetails">
+        <form [formGroup]="createAndEditForm">
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="name">Customer Name<span class="mandatoryColor">*</span></label>
+                    <input id="name" type="text" formControlName="name" placeholder="Enter Name" pInputText />
+                    <span class="p-error" *ngIf="createAndEditForm.get('name')?.touched &&
+                createAndEditForm.get('name')?.hasError('required')">First Name is required.</span>
+                    <span class="p-error" *ngIf="createAndEditForm.get('name')?.hasError('invalidName')">Please Enter
+                        characters only</span>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="customerCode">Customer Code<span
+                            class="mandatoryColor">*</span></label>
+                    <input id="customerCode" type="text" formControlName="customerCode" pInputText
+                        placeholder="Enter Customer Code" (keydown.enter)="searchCustomers($event)"
+                        (blur)="searchCustomers($event)" />
+                    <span
+                        *ngIf="createAndEditForm.get('customerCode').hasError('required') && createAndEditForm.get('customerCode').touched"
+                        class="p-error">Customer Code is required.</span>
+                    <span class="p-error" *ngIf="createAndEditForm.get('customerCode')?.hasError('incorrect')">Customer
+                        code already exists.</span>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="phone">Phone Number<span class="mandatoryColor">*</span></label>
+                    <p-inputNumber  id="phone" formControlName="phone" mode="decimal" maxlength="10" inputId="withoutgrouping"
+                        [useGrouping]="false" placeholder="Enter Phone Number"></p-inputNumber>
+                    <span class="p-error" *ngIf="createAndEditForm.get('phone')?.touched &&
+                    createAndEditForm.get('phone')?.hasError('required')">Phone Number is required.</span>
+                    <span class="p-error"
+                        *ngIf="createAndEditForm.controls.phone.errors?.minlength && createAndEditForm.controls.phone.errors?.maxlength || createAndEditForm.get('phone')?.hasError('pattern')">Please
+                        Enter valid phone number</span>
+                </div>
+            </div>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" class="textfont">Country<span class="mandatoryColor">*</span></label>
+                    <p-dropdown placeholder="Select Country" [options]="country" optionLabel="name" optionValue="code"
+                        formControlName="country" [showClear]="true">
+                    </p-dropdown>
+                    <span class="p-error" *ngIf="createAndEditForm.get('country')?.touched &&
+                    createAndEditForm.get('country')?.hasError('required')">Country is required.</span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="state">State<span class="mandatoryColor">*</span></label>
+                    <input id="state" type="text" formControlName="state" pInputText placeholder="Enter State" />
+                    <span *ngIf="createAndEditForm.get('state').invalid && createAndEditForm.get('state').touched"
+                        class="p-error">State is required.</span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="state">City<span class="mandatoryColor">*</span></label>
+                    <input id="state" type="text" formControlName="city" pInputText placeholder="Enter City" />
+                    <snap *ngIf="createAndEditForm.get('city').invalid && createAndEditForm.get('city').touched"
+                        class="p-error">City is required.</snap>
+                </div>
+            </div>
+            <div class="grid p-fluid">
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="postalCode">Postal Code<span class="mandatoryColor">*</span></label>
+                    <p-inputNumber formControlName="postalCode" mode="decimal" inputId="withoutgrouping"
+                        [useGrouping]="false" placeholder="Enter Postal Code"></p-inputNumber>
+                    <span
+                        *ngIf="createAndEditForm.get('postalCode').invalid && createAndEditForm.get('postalCode').touched"
+                        class="p-error">Postal Code is required.</span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="address1">Address 1<span class="mandatoryColor">*</span></label>
+                    <input id="address1" type="text" formControlName="address1" pInputText
+                        placeholder="Enter Address1" />
+                    <span *ngIf="createAndEditForm.get('address1').invalid && createAndEditForm.get('address1').touched"
+                        class="p-error">Address 1 is required.</span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="address2">Address 2</label>
+                    <input id="address2" type="text" formControlName="address2" pInputText
+                        placeholder="Enter Address2" />
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="contactName">Contact Name</label>
+                    <input id="contactName" type="text" formControlName="contactName" pInputText
+                        placeholder="Enter Contact Name" />
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="status">Status</label>
+                    <p-dropdown placeholder="Select Status" [options]="statusOptions" optionLabel="name"
+                        optionValue="code" formControlName="status" [showClear]="true">
+                    </p-dropdown>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="controllingShipper">Controlling Shipper<span
+                            class="mandatoryColor">*</span></label>
+                    <input id="controllingShipper" type="text" formControlName="controllingShipper" pInputText
+                        placeholder="Enter Controlling Shipper" />
+                    <span
+                        *ngIf="createAndEditForm.get('controllingShipper').invalid && createAndEditForm.get('controllingShipper').touched"
+                        class="p-error">Controlling Shipper is required.</span>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="allowAsShipper">Allow As Shipper<span
+                            class="mandatoryColor">*</span></label>
+                    <p-dropdown placeholder="Select Allow As Shipper" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsShipper" [showClear]="true"> </p-dropdown>
+                    <snap
+                        *ngIf="createAndEditForm.get('allowAsShipper').invalid && createAndEditForm.get('allowAsShipper').touched"
+                        class="p-error">Allow As Shipper is required.</snap>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="allowAsBillTo">Allow As Bill To<span
+                            class="mandatoryColor">*</span></label>
+                    <p-dropdown placeholder="Select Allow As Bill To" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsBillTo" [showClear]="true"> </p-dropdown>
+                    <snap
+                        *ngIf="createAndEditForm.get('allowAsBillTo').invalid && createAndEditForm.get('allowAsBillTo').touched"
+                        class="p-error">Allow As Bill To is required.</snap>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="allowAsLoadAt">Allow As Load At<span
+                            class="mandatoryColor">*</span></label>
+                    <p-dropdown placeholder="Select Allow As Load At" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsLoadAt" [showClear]="true"> </p-dropdown>
+                    <snap
+                        *ngIf="createAndEditForm.get('allowAsLoadAt').invalid && createAndEditForm.get('allowAsLoadAt').touched"
+                        class="p-error">Allow As Load At is required.</snap>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <label class="textfont" for="allowAsConsignee">Allow As Consignee<span
+                            class="mandatoryColor">*</span></label>
+                    <p-dropdown placeholder="Select Allow As Consignee" [options]="yesOrNo" optionLabel="name"
+                        optionValue="code" formControlName="allowAsConsignee" [showClear]="true"> </p-dropdown>
+                    <snap
+                        *ngIf="createAndEditForm.get('allowAsConsignee').invalid && createAndEditForm.get('allowAsConsignee').touched"
+                        class="p-error">Allow As Consignee is required.</snap>
+                </div>
+            </div>
+            <div class="flex justify-content-end">
+                <button pButton type="button" label="Submit" [disabled]="showSubscriptionDetails"
+                    (click)="addCustomer()"></button>
+            </div>
+        </form>
+    </p-panel>
+    <div *ngIf="showSubscriptionDetails" class="mt">
+        <form [formGroup]="createsubscriptionForm">
+            <p-panel header="Subscription Details" [toggleable]="true" [collapsed]="!showSubscriptionDetails">
+                <div formArrayName="subscriptions">
+                    <div *ngFor="let subscription of subscriptionForms.controls; let i = index" class="container"
+                        [formGroupName]="i">
+                        <p-card>
+                            <div *ngIf="!isInitialForm[i]" class="grid flex flex-wrap justify-content-end">
+                                <i style="font-size: 1.5em;" class="pi pi-times-circle actionIcons remove-button"
+                                    (click)="removeSubscription(i)" pTooltip="Remove Subscription"></i>
+                            </div>
+                            <div class="grid p-fluid">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="customerCode">Customer Code</label>
+                                    <input id="customerCode" type="text" formControlName="customerCode" pInputText
+                                        placeholder="Enter Customer Code" disabled />
+                                    <!-- <snap
+                                        *ngIf="createsubscriptionForm.get('customerCode').hasError('required')"
+                                        class="p-error">Customer Code is required.</snap> -->
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="subscriptionType">Subscription Type<span
+                                            class="mandatoryColor">*</span></label>
+                                    <p-dropdown placeholder="Select Allow As Consignee" [options]="vendors"
+                                        optionLabel="value" optionValue="label" formControlName="subscriptionType"
+                                        [showClear]="true"> </p-dropdown>
+                                    <!-- <span
+                                        *ngIf="createsubscriptionForm.get('subscriptionType').hasError('required')"
+                                        class="p-error">Subscription Type is required.</span> -->
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="billTo">Bill To<span
+                                            class="mandatoryColor">*</span></label>
+                                    <p-dropdown placeholder="Select Bill To" [options]="yesOrNo" optionLabel="name"
+                                        optionValue="code" formControlName="billTo" [showClear]="true">
+                                    </p-dropdown>
+                                    <!-- <span
+                                        *ngIf="createsubscriptionForm.get('billTo').hasError('required')"
+                                        class="p-error">BillTo is required.</span> -->
+                                </div>
+                            </div>
+                            <div class="grid p-fluid">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="controlling">Controlling<span
+                                            class="mandatoryColor">*</span></label>
+                                    <p-dropdown placeholder="Select Controlling" [options]="yesOrNo" optionLabel="name"
+                                        optionValue="code" formControlName="controlling" [showClear]="true">
+                                    </p-dropdown>
+                                    <!-- <span
+                                        *ngIf="createsubscriptionForm.get('controlling').hasError('required')"
+                                        class="p-error">Controlling is required.</span> -->
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="shipper">Shipper<span
+                                            class="mandatoryColor">*</span></label>
+                                    <p-dropdown placeholder="Select Shipper" [options]="yesOrNo" optionLabel="name"
+                                        optionValue="code" formControlName="shipper" [showClear]="true">
+                                    </p-dropdown>
+                                    <!-- <span
+                                        *ngIf="createsubscriptionForm.get('shipper').hasError('required')"
+                                        class="p-error">Shipper is required.</span> -->
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont">Tracking Required</label>
+                                    <p-dropdown placeholder="Select Tracking Required" [options]="yesOrNo"
+                                        optionLabel="name" optionValue="code" formControlName="trackingRequired"
+                                        [showClear]="true"> </p-dropdown>
+                                </div>
+                            </div>
+                            <div class="grid p-fluid">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="transmissionId">Transmission Id</label>
+                                    <input id="transmissionId" type="text" formControlName="transmissionId" pInputText
+                                        placeholder="Enter Transmission Id" />
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="apiVersion">API Version</label>
+                                    <input id="apiVersion" type="text" formControlName="apiVersion" pInputText
+                                        placeholder="Enter API Version" />
+                                </div>
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont" for="thirdPartyService">Third Party Service</label>
+                                    <input id="thirdPartyService" type="text" formControlName="thirdPartyService"
+                                        pInputText placeholder="Enter Third Party Service" />
+                                </div>
+
+                            </div>
+                            <div class="grid p-fluid">
+                                <div class="col-12 md:col-6 lg:col-4">
+                                    <label class="textfont">Is API</label>
+                                    <p-dropdown placeholder="Select Is API" [options]="yesOrNo" optionLabel="name"
+                                        optionValue="code" formControlName="isAPI" [showClear]="true"> </p-dropdown>
+                                </div>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+                <div class="grid flex flex-wrap justify-content-end mt-4 ">
+                    <button pButton type="button" label="Add Subscription"
+                        (click)="addSubscriptionForm()"></button>&nbsp;
+                    <button pButton type="button" label="Submit" (click)="onSubmit()"></button>
+                </div>
+            </p-panel>
+        </form>
+    </div>
+</div>

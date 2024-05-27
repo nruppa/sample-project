@@ -1,0 +1,44 @@
+<h5>Vendors</h5>
+    <div class="grid p-fluid align-items-center justify-content-center">
+        <div class="col-12 md:col-8 lg:col-6 grid justify-content-center">
+            <div class="col-12 md:col-6 lg:col-6 flex flex-wrap justify-content-center"
+                *ngFor="let vendor of vendorList">
+                <div class="flex text-xl text-center p-3  m-3   shadow-2 m-3 surface-card  
+                border-round h-12rem w-20rem  align-items-center justify-content-center
+                 font-semibold vender-name" (click)="getVendorData(vendor)">{{vendor.
+                    vendorName}} ({{vendor.vendorId}})</div>
+            </div>
+        </div>
+    </div>
+    <p-dialog [header]="selectedVendor?.vendorName" [(visible)]="showVendorLoginDetails" [modal]="true"
+        [style]="{ 'width': '430px' }" (keydown.enter)="submitData()" (onHide)="showVendorLoginDetails=false"
+        [draggable]="false" [resizable]="false">
+        <div class="grid p-fluid ">
+            <div class="col-12 md:col-12 lg:col-12">
+                <label class="textfont">Password</label>
+                <p-password [(ngModel)]="password" [feedback]="false" [toggleMask]="true" placeholder="Password"></p-password>
+            </div>
+        </div>
+        <div class="grid flex flex-wrap justify-content-end mt-4 ">
+            <p-button class="primarybtn" label="Close" (click)="closeVendorData()"></p-button>&nbsp;&nbsp;
+            <p-button class="primarybtn" label="Submit" (click)="submitData()"></p-button>
+        </div>
+    </p-dialog>
+    <p-dialog [header]="selectedVendor?.vendorName" [(visible)]="showVendorDetails" [modal]="true"
+        [style]="{ 'width': '430px' }" (onHide)="showVendorDetails=false" [draggable]="false" [resizable]="false"
+        (keydown.enter)="updateData()">
+        <div class="grid p-fluid ">
+            <div class="col-12 md:col-12 lg:col-12" *ngFor="let vendor of selectedVendorDetails">
+                <label [for]="vendor.id">{{ vendor.fieldName}}<span class="mandatoryColor">*</span></label>
+                <br>
+                <textarea pInputTextarea [rows]="1" [autoResize]="true" [(ngModel)]="vendor.fieldValue"
+                    [id]="vendor.id"></textarea>
+                <span class="p-error" *ngIf="isEmpty(vendor.fieldValue)">{{ vendor.fieldName}} is required.</span>
+            </div>
+        </div>
+        <div class="grid flex flex-wrap justify-content-end mt-4 ">
+            <p-button class="primarybtn" label="Close" (click)="showVendorDetails=false"></p-button>&nbsp;&nbsp;
+            <p-button class="primarybtn" label="Update" (click)="updateData()"></p-button>
+        </div>
+    </p-dialog>
+    <p-toast></p-toast>

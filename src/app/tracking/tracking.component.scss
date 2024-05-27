@@ -1,0 +1,49 @@
+.container {
+    margin-top: 1px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .btn-primary {
+    margin-right: 10px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table th, .table td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+  .search-container {
+    margin-bottom: 10px;
+}
+
+.search-fields {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.search-fields legend {
+    font-size: 1.2em;
+    font-weight: bold;
+    
+}
+
+.p-grid .p-col {
+    margin-bottom: 10px;
+}
+
+.round-checkbox .p-checkbox-box {
+    border-radius: 50%; /* Make the checkbox round */
+  }

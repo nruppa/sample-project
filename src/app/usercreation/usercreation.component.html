@@ -1,0 +1,191 @@
+<h5>Users</h5>
+<p-tabView (onChange)="handleChange($event)">
+  <p-tabPanel header="Search">
+    <form [formGroup]="searchForm">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-6 lg:col-3">
+          <label for="firstName" class="textfont">First Name:</label>
+          <input id="firstName" pInputText type="text" formControlName="firstname"
+            placeholder="Enter First Name" />&nbsp;
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+          <label for="lastName" class="textfont">Last Name:</label>
+          <input id="lastName" pInputText type="text" formControlName="lastname" placeholder="Enter Last Name" />&nbsp;
+        </div>
+        <div class="col-12 md:col-6 lg:col-3">
+          <label class="textfont"> Role</label>
+          <p-dropdown formControlName="role" placeholder="Select Role" [options]="roles" optionLabel="label"
+            optionValue="value"></p-dropdown>
+        </div>
+      </div>
+    </form>
+    <div class="grid p-fluid">
+      <div class="col-12 md:col-2 lg:col-2">
+        <button pButton type="button" label="Search" (click)="getUserData()"></button>
+      </div>
+      <div class="col-12 md:col-2 lg:col-2">
+        <button pButton type="button" label="Reset" (click)="resetSearch()"></button>
+      </div>
+    </div>
+  </p-tabPanel>
+  <p-tabPanel header="Add User">
+    <form [formGroup]="createForm">
+      <div class="grid p-fluid">
+        <div class="col-12 md:col-12 lg:col-3">
+          <label for="firstname-input" class="textfont">First Name<span class="mandatoryColor">*</span></label>
+          <input formControlName="firstname" type="text" placeholder="Enter First Name" pInputText />
+          <span class="p-error" *ngIf="createForm.get('firstname')?.touched &&
+                        createForm.get('firstname')?.hasError('required')">First Name is required.</span>
+          <span class="p-error" *ngIf="createForm.controls.firstname.errors?.pattern">Please enter characters
+            only</span>
+        </div>
+        <div class="col-12 md:col-12 lg:col-3">
+          <label for="lastname-input" class="textfont">Last Name<span class="mandatoryColor">*</span></label>
+          <input formControlName="lastname" type="text" placeholder="Enter Last Name" pInputText />
+          <span id="lastname-help" class="p-error" *ngIf="createForm.get('lastname')?.touched &&
+                        createForm.get('lastname')?.hasError('required')">Last Name is required.</span>
+          <span class="p-error" *ngIf="createForm.controls.lastname.errors?.pattern">Please enter characters
+            only</span>
+        </div>
+        <div class="col-12 md:col-12 lg:col-3">
+          <label class="textfont">Phone Number<span class="mandatoryColor">*</span></label>
+          <p-inputNumber id="phoneNumber" formControlName="phoneNumber" mode="decimal" maxlength="10" inputId="withoutgrouping"
+            [useGrouping]="false" placeholder="Enter Phone Number"
+            [ngClass]="createForm.get('phoneNumber')?.touched && submitted ? 'ng-invalid ng-dirty' : '' "></p-inputNumber>
+          <span id="phone-help" class="p-error" *ngIf="createForm.get('phoneNumber')?.touched &&
+                        createForm.get('phoneNumber')?.hasError('required')">Phone Number is required.</span>
+          <span class="p-error"
+            *ngIf="createForm.controls.phoneNumber.errors?.minlength && createForm.controls.phoneNumber.errors?.maxlength || createForm.controls.phoneNumber.errors?.pattern">Please
+            enter valid phone number</span>
+        </div>
+        <div class="col-12 md:col-12 lg:col-3">
+          <label class="textfont">Email<span class="mandatoryColor">*</span></label>
+          <input formControlName="emailid" type="text" placeholder="Enter Email" pInputText
+            (keydown.enter)="checkEmailIdExists($event)" (blur)="checkEmailIdExists($event)" />
+
+          <span id="email-help" class="p-error" *ngIf="createForm.get('emailid')?.touched &&
+                        createForm.get('emailid')?.hasError('required')">Email is required.</span>
+          <span class="p-error" *ngIf="createForm.controls.emailid.errors?.pattern">Please enter valid email</span>
+          <span class="p-error" *ngIf="createForm.get('emailid')?.hasError('incorrect')">Email is already exists.</span>
+        </div>
+        <div class="col-12 md:col-12 lg:col-3">
+          <label class="textfont"> Role<span class="mandatoryColor">*</span></label>
+          <p-dropdown formControlName="role" placeholder="Select Role" [options]="roles" optionLabel="label"
+            optionValue="value" [showClear]="true"></p-dropdown>
+          <span id="role-help" class="p-error" *ngIf="createForm.get('role')?.touched &&
+                          createForm.get('role')?.hasError('required')">Role is required.</span>
+        </div>
+        <div class="col-12 md:col-2 lg:col-2 buttnStyle">
+          <button pButton type="button" label="Save" (click)="addUser()"></button>
+        </div>
+      </div>
+    </form>
+  </p-tabPanel>
+</p-tabView>
+<br>
+<p-card *ngIf="didSearch">
+  <ng-container *ngIf="userData!=0">
+    <p-table [columns]="cols" [value]="userData" selectionMode="single" dataKey="edit" [responsive]="true"
+      id="excel-table" sortMode="multiple">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th id="gridHeader" *ngFor="let col of columns let i=index" [pSortableColumn]="col.field">
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-data let-i="rowIndex">
+        <tr>
+          <td>{{ data.firstName }}</td>
+          <td> {{ data.lastName }} </td>
+          <td> {{ data.emailId }} </td>
+          <td> {{ data.phoneNumber }} </td>
+          <td> {{ getRoleById(data.role)}}
+          </td>
+          <td>
+            <div>
+              <i class="pi pi-pencil actionIcons" (click)="openEditEmployeeDialog(data)"></i>
+              &nbsp;&nbsp;
+              <i class="pi pi-trash actionIcons" (click)="confirmDelete(data, $event)"></i>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="p-col-12 p-md-12 p-sm-12 p-lg-12">
+      <p-paginator [rows]="10" [totalRecords]="pageCount" [rowsPerPageOptions]="[10,20,30]"
+        (onPageChange)="paginate($event)" #p></p-paginator>
+    </div>
+  </ng-container>
+  <app-no-records [display]="userData==0"></app-no-records>
+</p-card>
+<p-confirmDialog header="Confirm Deletion" [(visible)]="showDeleteConfirmation" [style]="{ 'width': '400px' }"
+  (accept)="deleteItem()" (reject)="cancelDelete()">
+  <p>Are you sure you want to delete this item?</p>
+</p-confirmDialog>
+<!-- Edit user -->
+<p-dialog header="Edit User" [(visible)]="showEditDialog" [modal]="true" [style]="{ 'width': '600px' }"
+  (onHide)="closeEditEmployeeDialog()" [draggable]="false" [resizable]="false">
+  <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()" style="margin-top: -4px;">
+    <div class="grid flex flex-wrap mt-3">
+      <div class="col-4">
+        <div class="p-float-label">
+          <input class="w-full" id="edit-firstname-input" formControlName="firstName" type="text" pInputText />
+          <label for="edit-firstname-input">First Name</label>
+        </div>
+        <span id="firstname-help" class="p-error" *ngIf="editForm.get('firstName')?.touched &&
+          editForm.get('firstName')?.hasError('required')">First Name is required.</span>
+        <span class="p-error" *ngIf="editForm.controls.firstName.errors?.pattern">Please enter characters only</span>
+
+      </div>
+      <div class="col-4">
+        <div class="p-float-label">
+          <input class="w-full" id="edit-lastname-input" formControlName="lastName" type="text" pInputText />
+          <label for="edit-lastname-input">Last Name</label>
+        </div>
+        <span id="lastname-help" class="p-error" *ngIf="editForm.get('lastName')?.touched &&
+      editForm.get('lastName')?.hasError('required')">Last Name is required.</span>
+        <span class="p-error" *ngIf="editForm.controls.lastName.errors?.pattern">Please enter characters only</span>
+
+      </div>
+      <div class="col-4">
+        <div class="p-float-label">
+          <!-- <input class="w-full" id="edit-phone-input" formControlName="phoneNumber" type="text" pInputText /> -->
+          <p-inputNumber id="edit-phone-input"  formControlName="phoneNumber" mode="decimal" maxlength="10" inputId="withoutgrouping"
+            [useGrouping]="false" placeholder="Enter Phone Number"></p-inputNumber>
+          <label for="edit-phone-input">Phone Number</label>
+        </div>
+        <span id="phone-help" class="p-error" *ngIf="editForm.get('phone')?.touched &&
+      editForm.get('phoneNumber')?.hasError('required')">Phone Number is required.</span>
+        <span class="p-error"
+          *ngIf="editForm.controls.phoneNumber.errors?.minlength && editForm.controls.phoneNumber.errors?.maxlength || editForm.controls.phoneNumber.errors?.pattern">Please
+          enter valid Phone Number</span>
+      </div>
+    </div>
+
+    <div class="grid flex flex-wrap mt-3">
+      <div class="col-6">
+        <div class="p-float-label">
+          <input class="w-full" id="edit-email-input" formControlName="emailId" type="text" pInputText />
+          <label for="edit-email-input">Email</label>
+        </div>
+        <span id="email-help" class="p-error" *ngIf="editForm.get('emailId')?.touched &&
+        editForm.get('emailId')?.hasError('required')">Email is required.</span>
+        <span class="p-error" *ngIf="editForm.controls.emailId.errors?.pattern">Please enter valid email</span>
+      </div>
+      <div class="col-6">
+        <div class="p-float-label">
+          <p-dropdown formControlName="role" placeholder="Select Role" [options]="roles" optionLabel="label"
+            optionValue="value"></p-dropdown>
+          <label for="edit-email-input">Role</label>
+        </div>
+      </div>
+      <span id="role-help" class="p-error" *ngIf="editForm.get('role')?.touched &&
+    editForm.get('role')?.hasError('required')">Role is required.</span>
+    </div>
+    <div class="grid flex flex-wrap mt-4" style="margin-left: 85%;">
+      <p-button class="primarybtn" label="Update" (click)="updateUser()"></p-button>
+    </div>
+  </form>
+</p-dialog>
+<p-toast></p-toast>

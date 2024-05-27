@@ -1,0 +1,115 @@
+<h5>Customer Details</h5>
+<p-card>
+    <div>
+        <button pButton type="button" label="Back" (click)="goBack()" class="back"></button>
+    </div>
+    <form [formGroup]="customerDetails">
+        <div class="grid p-fluid">
+            <div class="col-12 md:col-12 lg:col-12">
+                <h5 style="color: #2196F3;">Customer Details:</h5>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="name">Name</label>
+                <input id="name" type="text" formControlName="name" pInputText readonly="true" />
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="phone">Phone</label>
+                <input id="phone" type="text" formControlName="phone" pInputText readonly="true" />
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="country">Country</label>
+                <input id="country" type="text" formControlName="country" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="postalCode">Postal Code</label>
+                <input id="postalCode" type="text" formControlName="postalCode" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="state">State</label>
+                <input id="state" type="text" formControlName="state" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="address1">Address 1</label>
+                <input id="address1" type="text" formControlName="address1" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="address2">Address 2</label>
+                <input id="address2" type="text" formControlName="address2" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="contactName">Contact Name</label>
+                <input id="contactName" type="text" formControlName="contactName" pInputText readonly="true" />
+
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="controllingShipper">Controlling Shipper</label>
+                <input id="controllingShipper" type="text" formControlName="controllingShipper" pInputText
+                    readonly="true" />
+
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="allowAsShipper">Allow As Shipper</label>
+                <input id="allowAsShipper" type="text" formControlName="allowAsShipper" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="allowAsBillTo">Allow As Bill To</label>
+                <input id="allowAsBillTo" type="text" formControlName="allowAsBillTo" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="allowAsLoadAt">Allow As Load At</label>
+                <input id="allowAsLoadAt" type="text" formControlName="allowAsLoadAt" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="allowAsConsignee">Allow As Consignee</label>
+                <input id="allowAsConsignee" type="text" formControlName="allowAsConsignee" pInputText
+                    readonly="true" />
+            </div>
+<br>
+            <div class="col-12 md:col-12 lg:col-12">
+                <h5 style="color: #2196F3;">Customer Subscription :</h5>
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="subscriptionType">Subscription Type</label>
+                <input id="subscriptionType" type="text" formControlName="subscriptionType" pInputText
+                    readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="controlling">Controlling</label>
+                <input id="controlling" type="text" formControlName="controlling" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="billTo">Bill To</label>
+                <input id="billTo" type="text" formControlName="billTo" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="shipper">Shipper</label>
+                <input id="shipper" type="text" formControlName="shipper" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label>Tracking Required</label>
+                <input type="text" formControlName="trackingRequired" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="transmissionId">Transmission Id</label>
+                <input id="transmissionId" type="text" formControlName="transmissionId" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="transmissionId">Is API</label>
+                <input id="transmissionId" type="text" formControlName="isAPI" pInputText readonly="true" />
+            </div>
+
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="apiVersion">API Version</label>
+                <input id="apiVersion" type="text" formControlName="apiVersion" pInputText readonly="true" />
+            </div>
+            <div class="col-12 md:col-6 lg:col-3">
+                <label for="thirdPartyService">Third Party Service</label>
+                <input id="thirdPartyService" type="text" formControlName="thirdPartyService" pInputText
+                    readonly="true" />
+            </div>
+
+        </div>
+    </form>
+</p-card>

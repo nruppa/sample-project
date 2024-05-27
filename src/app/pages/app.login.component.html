@@ -1,0 +1,39 @@
+<p-toast></p-toast>
+<div class="login-body">
+    <div class="login-panel"></div>
+
+    <div class="login-content">
+        <img src="assets\layout\images\mercer-login.png" alt="babylon-layout" />
+        <h1><span>Sign in to</span> Mercer API Tracking</h1>
+        <p>Welcome, please use the form to sign-in.</p>
+        <form [formGroup]="loginForm" (keydown.enter)="signIn(loginForm.value)">
+            <div class="login-input-wrapper">
+                <input type="text" autocomplete="off" formControlName="username" placeholder="Username" pInputText>
+                <i class="pi pi-user"></i>
+            </div>
+            <div class="login-input-wrapper">
+                <input type="{{ passwordVisible ? 'text' : 'password' }}" autocomplete="off" formControlName="password"
+                    placeholder="Password" pInputText>
+                <i class="pi pi-eye" (click)="togglePasswordVisibility()"
+                    [ngClass]="{'pi-eye': !passwordVisible, 'pi-eye-slash': passwordVisible}"></i>
+            </div>
+            <button (click)="signIn(loginForm.value)" pButton type="button" label="Sign In"></button>
+        </form>
+        <br />
+        <div>
+            <span (click)="openResetPasswordDialog()" class="text textfont">Forgot Password</span>
+        </div>
+    </div>
+</div>
+<p-dialog header="Forgot Password" [(visible)]="showPassword" [modal]="true" [style]="{ 'width': '430px' }"
+    (keydown.enter)="submitData()" (onHide)="showPassword=false" [draggable]="false" [resizable]="false">
+    <div class="grid p-fluid ">
+        <div class="col-12 md:col-12 lg:col-12">
+            <label>Enter Email Id<span class="mandatoryColor">*</span></label>
+            <input pInputText [(ngModel)]="emailId" type="text" class=" w-full">
+        </div>
+    </div>
+    <div class="flex justify-content-end">
+        <p-button class="primarybtn" label="Submit" (click)="submitData()"></p-button>
+    </div>
+</p-dialog>
